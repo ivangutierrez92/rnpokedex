@@ -8,6 +8,8 @@ import { PokemonDetails } from "../models/pokemon.model";
 import Header from "../components/Pokemon/Header";
 import Type from "../components/Pokemon/Type";
 import Stats from "../components/Pokemon/Stats";
+import Favorite from "../components/Pokemon/Favorite";
+import useAuth from "../context/useAuth";
 
 type Props = NativeStackScreenProps<PokedexNavigatorParamList, "Pokemon">;
 
@@ -15,24 +17,18 @@ export default function Pokemon({ navigation, route }: Props) {
   const [pokemon, setPokemon] = useState<PokemonDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const {auth} = useAuth();
   const { params } = route;
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => null,
-      headerLeft: () => (
-        <Ionicons
-          name="arrow-back"
-          color="#fff"
-          size={24}
-          onPress={() => navigation.goBack()}
-        />
-      ),
+      headerRight: () => auth && <Favorite id={params.id} />,
+      headerLeft: () => <Ionicons name="arrow-back" color="#fff" size={24} onPress={() => navigation.goBack()} />,
     });
   }, [navigation, params]);
 
   useEffect(() => {
-    getPokemon(route.params.id);
+    getPokemon(params.id);
   }, [params]);
 
   const getPokemon = async (id: number) => {

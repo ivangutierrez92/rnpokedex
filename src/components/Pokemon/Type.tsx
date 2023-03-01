@@ -9,7 +9,7 @@ const Type: FC<Props> = ({ types }) => {
   return (
     <View style={styles.content}>
       {types.map((item, index) => (
-        <View style={{ ...styles.pill, backgroundColor: POKEMON_TYPE_COLORS[item.type.name] }}>
+        <View key={`type-${index}`} style={{ ...styles.pill, backgroundColor: POKEMON_TYPE_COLORS[item.type.name] }}>
           <Text style={styles.pillText} key={`${index}`}>{item.type.name}</Text>
         </View>
       ))}
