@@ -19,3 +19,5 @@ export const POKEMON_TYPE_COLORS : {[key: string]: string} = {
   dark: "#705848",
   fairy: "#EE99AC",
 };
+
+export const FAVORITE_STORAGE = "favorites"
